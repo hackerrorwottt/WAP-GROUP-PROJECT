@@ -4,12 +4,12 @@ import { X, ShieldCheck, Bookmark, CheckCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const Cart = () => {
-  const { cartItems, removeFromCart, updateQuantity, cartTotal } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, clearCart, cartTotal } = useCart();
   const [isOrdered, setIsOrdered] = useState(false);
 
   const handlePlaceOrder = () => {
     setIsOrdered(true);
-    // In a real app, we'd clear the cart here
+    clearCart();
   };
 
   if (isOrdered) {

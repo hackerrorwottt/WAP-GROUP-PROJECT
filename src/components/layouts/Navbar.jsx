@@ -42,7 +42,7 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/shop/men?search=${searchQuery.trim()}`);
+      navigate(`/shop/search?search=${searchQuery.trim()}`);
       setIsMenuOpen(false);
       setShowSuggestions(false);
     }
@@ -50,7 +50,7 @@ const Navbar = () => {
 
   const handleSuggestionClick = (query) => {
     setSearchQuery(query);
-    navigate(`/shop/men?search=${query}`);
+    navigate(`/shop/search?search=${query}`);
     setShowSuggestions(false);
   };
 

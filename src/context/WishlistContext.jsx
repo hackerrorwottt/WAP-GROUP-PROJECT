@@ -6,8 +6,12 @@ export const useWishlist = () => useContext(WishlistContext);
 
 export const WishlistProvider = ({ children }) => {
   const [wishlistItems, setWishlistItems] = useState(() => {
-    const saved = localStorage.getItem('myntra-wishlist');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('myntra-wishlist');
+      return (saved && saved !== "undefined") ? JSON.parse(saved) || [] : [];
+    } catch (e) {
+      return [];
+    }
   });
 
   useEffect(() => {

@@ -6,8 +6,12 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
-    const saved = localStorage.getItem('myntra-cart');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('myntra-cart');
+      return (saved && saved !== "undefined") ? JSON.parse(saved) || [] : [];
+    } catch (e) {
+      return [];
+    }
   });
 
   useEffect(() => {
@@ -42,11 +46,13 @@ export const CartProvider = ({ children }) => {
     }));
   };
 
+  const clearCart = () => setCartItems([]);
+
   const cartTotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, cartTotal, cartCount }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart, cartTotal, cartCount }}>
       {children}
     </CartContext.Provider>
   );
